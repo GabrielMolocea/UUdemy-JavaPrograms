@@ -12,6 +12,7 @@ public class BankAccount {
     }
 
     public BankAccount(String number, double balance, String customerName, String customerEmail, String phoneNumber){
+        System.out.println("Account constructor with parameters called");
         this.number = number;
         this.balance = balance;
         this.customerEmail =customerEmail;
@@ -19,8 +20,12 @@ public class BankAccount {
         this.phoneNumber = phoneNumber;
     }
 
-    public void deposit(double depositAmout){
-        this.balance += depositAmout;
+    public BankAccount(String customerName, String customerEmail, String phoneNumber) {
+        this("99999",100.55,customerName,customerEmail,phoneNumber);
+    }
+
+    public void deposit(double depositAmount){
+        this.balance += depositAmount;
     }
 
     public void withdrawal(double withdrawalAmount){
