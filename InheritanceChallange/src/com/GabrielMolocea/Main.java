@@ -7,5 +7,6 @@ public class Main {
         tesla.steer(45);
         tesla.accelerate(30);
         tesla.accelerate(20);
+        tesla.accelerate(-42);
     }
 }
