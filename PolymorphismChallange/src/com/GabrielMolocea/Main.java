@@ -64,17 +64,17 @@ class Mitsubishi extends Car{
 
     @Override
     public String startEngine() {
-        return "Mitsubishi -> startEngine()";
+        return getClass().getSimpleName() + " -> startEngine()";
     }
 
     @Override
     public String accelerate() {
-        return "Mitsubishi -> accelerate()";
+        return getClass().getSimpleName() + " -> accelerate()";
     }
 
     @Override
     public String brake() {
-        return "Mitsubishi -> brake()";
+        return getClass().getSimpleName() + " -> brake()";
     }
 }
 
@@ -85,17 +85,17 @@ class Mitsubishi extends Car{
 
         @Override
         public String startEngine() {
-            return "Holden -> startEngine()";
+            return getClass().getSimpleName() + " -> startEngine()";
         }
 
         @Override
         public String accelerate() {
-            return "Holden -> accelerate()";
+            return getClass().getSimpleName() + " -> accelerate()";
         }
 
         @Override
         public String brake() {
-            return "Holden -> brake()";
+            return getClass().getSimpleName() + "  -> brake()";
         }
     }
 
@@ -106,17 +106,17 @@ class Mitsubishi extends Car{
 
         @Override
         public String startEngine() {
-            return "Ford -> startEngine()";
+            return getClass().getSimpleName() + " -> startEngine()";
         }
 
         @Override
         public String accelerate() {
-            return "Ford -> accelerate()";
+            return getClass().getSimpleName() + " -> accelerate()";
         }
 
         @Override
         public String brake() {
-            return "Ford -> brake()";
+            return getClass().getSimpleName() + " -> brake()";
         }
     }
 
