@@ -7,5 +7,7 @@ public class Main {
 	myIntArray[5] = 50;
 
 	double[] myDoubleArray = new double[10];
+
+	System.out.println(myIntArray[5]);
     }
 }
