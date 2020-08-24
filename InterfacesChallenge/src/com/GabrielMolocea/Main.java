@@ -14,7 +14,7 @@ public class Main {
     System.out.println(gabriel);
     gabriel.setWeapon("Stormbringer");
     saveObject(gabriel);
-//    loadObject(gabriel);
+   loadObject(gabriel);
     System.out.println(gabriel);
         
     ISaveable werewolf = new Monster("Werewolf",20,40);
@@ -57,7 +57,7 @@ public class Main {
         }
     }
     public static  void loadObject(ISaveable objectToLoad){
-        ArrayList<String> values =  redValues();
+        ArrayList<String> values = redValues();
         objectToLoad.red(values);
     }
 }
