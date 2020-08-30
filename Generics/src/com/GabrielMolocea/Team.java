@@ -2,14 +2,14 @@ package com.GabrielMolocea;
 
 import java.util.ArrayList;
 
-public class Team {
+public class Team<T extends  Player> implements Comparable<Team<T>> {
     private String name;
-    int played =0;
-    int wom =0;
+    int played = 0;
+    int wom = 0;
     int lost = 0;
     int tied = 0;
     
-    private ArrayList<Player> members = new ArrayList<>();
+    private ArrayList<T> members = new ArrayList<>();
     
     public Team(String name) {
         this.name = name;
@@ -19,8 +19,8 @@ public class Team {
         return name;
     }
     
-    public boolean addPlayer(Player player){
-        if (members.contains(player)){
+    public boolean addPlayer(T player) {
+        if (members.contains(player)) {
             System.out.println(player.getName() + " is already on this team.");
             return false;
         } else {
@@ -29,24 +29,43 @@ public class Team {
             return true;
         }
     }
-    public int numPlayers(){
+    
+    public int numPlayers() {
         return this.members.size();
     }
-    public void  matchResult(Team opponent,int ourScoure,int theirScore){
-        if (ourScoure > theirScore){
+    
+    public void matchResult(Team<T> opponent, int ourScoure, int theirScore) {
+        String massage;
+        
+        if (ourScoure > theirScore) {
             wom++;
-        }else if (ourScoure == theirScore){
+            massage= " beat ";
+        } else if (ourScoure == theirScore) {
             tied++;
+            massage = " drew with ";
         } else {
             lost++;
+            massage = " lost to ";
         }
         played++;
-        if (opponent != null){
-            opponent.matchResult(null,theirScore,ourScoure);
+        if (opponent != null) {
+            System.out.println(this.getName() + massage + opponent.getName());
+            opponent.matchResult(null, theirScore, ourScoure);
         }
     }
     
-    public  int ranking(){
+    public int ranking() {
         return (wom * 2) + tied;
+    }
+    
+    @Override
+    public int compareTo(Team<T> team) {
+        if (this.ranking() > team.ranking()){
+            return -1;
+        } else if (this.ranking() < team.ranking()){
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
