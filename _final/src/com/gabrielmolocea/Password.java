@@ -5,19 +5,19 @@ public class Password {
     private final int encryptedPassword;
     
     public Password(int password) {
-        this.encryptedPassword = encryptedDecreypt(password);
+        this.encryptedPassword = encryptedDecrypt(password);
     }
     
-    private int encryptedDecreypt(int password){
+    private int encryptedDecrypt(int password){
         return password ^ key;
     }
     
-    public void storePassword(){
+    public final void storePassword(){
         System.out.println("Saving password as " + this.encryptedPassword);
     }
     
     public boolean letMeIn(int password){
-        if (encryptedDecreypt(password) == this.encryptedPassword){
+        if (encryptedDecrypt(password) == this.encryptedPassword){
             System.out.println("Welcome");
             return true;
         } else {
