@@ -10,33 +10,38 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         
-        location.put(0, new Location(0, "You are sitting in front of a computer learning Java"));
-        location.put(1, new Location(1, "You are standing at the end of a road before a small brick building"));
-        location.put(2, new Location(2, "You are at the top of a hill"));
-        location.put(3, new Location(3, "You are inside a building, a well house for a small spring "));
-        location.put(4, new Location(4, "You are in a valley beside a stream"));
-        location.put(5, new Location(5, "You are in the forest"));
+        Map<String, Integer> tempExit = new HashMap<>();
+        location.put(0, new Location(0, "You are sitting in front of a computer learning Java",tempExit));
         
         //First room in the mini game
-        location.get(1).addExit("W",2);
-        location.get(1).addExit("E",3);
-        location.get(1).addExit("S",4);
-        location.get(1).addExit("N",5);
+        tempExit.put("W",2);
+        tempExit.put("E",3);
+        tempExit.put("S",4);
+        tempExit.put("N",5);
+        location.put(1, new Location(1, "You are standing at the end of a road before a small brick building",tempExit));
     
         //Second room in the mini game
-        location.get(2).addExit("N",5);
+        tempExit = new HashMap<>();
+        tempExit.put("N",5);
+        location.put(2, new Location(2, "You are at the top of a hill",tempExit));
 
         //Third room in the mini game
-        location.get(3).addExit("W",1);
-        
+        tempExit = new HashMap<>();
+        tempExit.put("W",1);
+        location.put(3, new Location(3, "You are inside a building, a well house for a small spring ",tempExit));
+    
         //Fourth room in the mini game
-        location.get(4).addExit("N",1);
-        location.get(4).addExit("W",2);
-        
+        tempExit = new HashMap<>();
+        tempExit.put("N",1);
+        tempExit.put("W",2);
+        location.put(4, new Location(4, "You are in a valley beside a stream",tempExit));
+    
         //Five room in the mini game
-        location.get(5).addExit("S",1);
-        location.get(5).addExit("W",2);
-        
+        tempExit = new HashMap<>();
+        tempExit.put("S",1);
+        tempExit.put("W",2);
+        location.put(5, new Location(5, "You are in the forest",tempExit));
+    
         Map<String,String> vocabulary = new HashMap<>();
         vocabulary.put("QUIT","Q");
         vocabulary.put("NORTH","N");
@@ -47,6 +52,7 @@ public class Main {
         int loc =1;
         while (true){
             System.out.println(location.get(loc).getDescription());
+            tempExit.remove("S");
             if (loc == 0){
                 break;
             }
