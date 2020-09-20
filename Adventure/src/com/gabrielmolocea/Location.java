@@ -23,6 +23,7 @@ public class Location {
 //        exits.put(direction,location);
 //    }
     
+    //Test for a new breach
     public int getLocationID() {
         return locationID;
     }
