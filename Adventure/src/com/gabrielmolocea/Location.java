@@ -24,6 +24,7 @@ public class Location {
 //    }
     
     //Test for a new breach
+    //New test
     public int getLocationID() {
         return locationID;
     }
