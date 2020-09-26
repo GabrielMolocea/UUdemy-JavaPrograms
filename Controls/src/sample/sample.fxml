@@ -12,7 +12,7 @@
     <Button text="Click me" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <graphic>
             <ImageView>
-<!--                <Image url="@download.jpg"/>-->
+                <!--                <Image url="@download.jpg"/>-->
             </ImageView>
         </graphic>
     </Button>
@@ -27,14 +27,14 @@
             </ImageView>
         </graphic>
     </Label>
-<!-- Toggle Buttons and group   -->
+    <!-- Toggle Buttons and group   -->
     <fx:define>
         <ToggleGroup fx:id="colorToggleGroup"/>
     </fx:define>
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="2">
-    <RadioButton text="Red" toggleGroup="$colorToggleGroup"/>
-    <RadioButton text="Blue" toggleGroup="$colorToggleGroup" selected="true"/>
-    <RadioButton text="Green" toggleGroup="$colorToggleGroup"/>
+        <RadioButton text="Red" toggleGroup="$colorToggleGroup"/>
+        <RadioButton text="Blue" toggleGroup="$colorToggleGroup" selected="true"/>
+        <RadioButton text="Green" toggleGroup="$colorToggleGroup"/>
     </VBox>
     <!-- CheckBox -->
 
@@ -81,4 +81,37 @@
             <String fx:value="cb 4"/>
         </value>
     </ChoiceBox>
+
+    <Slider GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="4"
+            min="0" max="100" showTickLabels="true" showTickMarks="true"
+            minorTickCount="4" snapToTicks="true"
+    />
+
+    <Spinner GridPane.rowIndex="2" GridPane.columnIndex="4" min="0" max="100"
+             editable="true" initialValue="50"
+    />
+    <ColorPicker GridPane.rowIndex="4" GridPane.columnIndex="0"
+
+    />
+
+    <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="4"
+
+    />
+
+    <Accordion GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="2"
+                expandedPane="$tp3"
+    >
+        <panes>
+            <TitledPane text="Titled Pane" >
+                <Label text="Label in titled pane"/>
+            </TitledPane>
+            <TitledPane text="Titled Pane 2">
+                <Label text="Label 2 in titled pane"/>
+            </TitledPane>
+            <TitledPane fx:id="tp3" text="Titled Pane 3">
+                <Label text="Label 3 in titled pane"/>
+            </TitledPane>
+        </panes>
+    </Accordion>
+
 </GridPane>
