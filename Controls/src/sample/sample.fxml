@@ -98,15 +98,17 @@
 
     />
 
-    <Accordion GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="2">
+    <Accordion GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="2"
+                expandedPane="$tp3"
+    >
         <panes>
-            <TitledPane text="Titled Pane">
+            <TitledPane text="Titled Pane" >
                 <Label text="Label in titled pane"/>
             </TitledPane>
             <TitledPane text="Titled Pane 2">
                 <Label text="Label 2 in titled pane"/>
             </TitledPane>
-            <TitledPane text="Titled Pane 3">
+            <TitledPane fx:id="tp3" text="Titled Pane 3">
                 <Label text="Label 3 in titled pane"/>
             </TitledPane>
         </panes>
