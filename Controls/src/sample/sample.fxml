@@ -7,12 +7,12 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.collections.FXCollections?>
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller" >
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
 
     <Button text="Click me" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <graphic>
             <ImageView>
-<!--                <Image url="@download.jpg"/>-->
+                <!--                <Image url="@download.jpg"/>-->
             </ImageView>
         </graphic>
     </Button>
@@ -27,14 +27,14 @@
             </ImageView>
         </graphic>
     </Label>
-<!-- Toggle Buttons and group   -->
+    <!-- Toggle Buttons and group   -->
     <fx:define>
         <ToggleGroup fx:id="colorToggleGroup"/>
     </fx:define>
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="2">
-    <RadioButton text="Red" toggleGroup="$colorToggleGroup"/>
-    <RadioButton text="Blue" toggleGroup="$colorToggleGroup" selected="true"/>
-    <RadioButton text="Green" toggleGroup="$colorToggleGroup"/>
+        <RadioButton text="Red" toggleGroup="$colorToggleGroup"/>
+        <RadioButton text="Blue" toggleGroup="$colorToggleGroup" selected="true"/>
+        <RadioButton text="Green" toggleGroup="$colorToggleGroup"/>
     </VBox>
     <!-- CheckBox -->
 
@@ -97,4 +97,19 @@
     <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="4"
 
     />
+
+    <Accordion GridPane.rowIndex="4" GridPane.columnIndex="2" GridPane.columnSpan="2">
+        <panes>
+            <TitledPane text="Titled Pane">
+                <Label text="Label in titled pane"/>
+            </TitledPane>
+            <TitledPane text="Titled Pane 2">
+                <Label text="Label 2 in titled pane"/>
+            </TitledPane>
+            <TitledPane text="Titled Pane 3">
+                <Label text="Label 3 in titled pane"/>
+            </TitledPane>
+        </panes>
+    </Accordion>
+
 </GridPane>
