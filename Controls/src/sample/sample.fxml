@@ -7,7 +7,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.collections.FXCollections?>
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.1"
-          xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller" >
 
     <Button text="Click me" GridPane.columnIndex="0" GridPane.rowIndex="0">
         <graphic>
@@ -81,4 +81,20 @@
             <String fx:value="cb 4"/>
         </value>
     </ChoiceBox>
+
+    <Slider GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="4"
+            min="0" max="100" showTickLabels="true" showTickMarks="true"
+            minorTickCount="4" snapToTicks="true"
+    />
+
+    <Spinner GridPane.rowIndex="2" GridPane.columnIndex="4" min="0" max="100"
+             editable="true" initialValue="50"
+    />
+    <ColorPicker GridPane.rowIndex="4" GridPane.columnIndex="0"
+
+    />
+
+    <DatePicker GridPane.rowIndex="3" GridPane.columnIndex="4"
+
+    />
 </GridPane>
