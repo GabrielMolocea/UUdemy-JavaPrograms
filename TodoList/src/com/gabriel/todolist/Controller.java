@@ -2,6 +2,7 @@ package com.gabriel.todolist;
 
 import com.gabriel.todolist.datamodel.TodoItem;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TextArea;
@@ -20,6 +21,9 @@ public class Controller {
     
     @FXML
     private TextArea itemDetailsTextArea;
+    
+    @FXML
+    private Label deadLineLabel;
     
     public void initialize(){
         TodoItem item1 = new TodoItem("Buy groceries","Buy missing groceries from home",
@@ -46,11 +50,13 @@ public class Controller {
     @FXML
     public void handleClickListView(){
         TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+        itemDetailsTextArea.setText(item.getDetails());
+        deadLineLabel.setText(item.getDeadLine().toString());
 //        System.out.println("The selected item is " + item);
-        StringBuilder sb = new StringBuilder(item.getDetails());
-        sb.append("\n\n\n\n");
-        sb.append("Due: ");
-        sb.append(item.getDeadLine().toString());
-        itemDetailsTextArea.setText(sb.toString());
+//        StringBuilder sb = new StringBuilder(item.getDetails());
+//        sb.append("\n\n\n\n");
+//        sb.append("Due: ");
+//        sb.append(item.getDeadLine().toString());
+//        itemDetailsTextArea.setText(sb.toString());
     }
 }
