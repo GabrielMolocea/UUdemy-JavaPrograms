@@ -1,0 +1,5 @@
+Buy groceries	Buy missing groceries from home	29-10-02020
+Doctor's Appointment	See Doctor bring paperwork	05-09-02020
+Enroll in language class	I need to learn more languages	29-09-02020
+Pickup Mail	Mail's arriving Oct.15	15-10-02020
+Cook food	Need to cook food for the week	28-10-02020
