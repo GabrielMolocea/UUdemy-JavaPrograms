@@ -4,6 +4,8 @@ import com.gabriel.todolist.datamodel.TodoData;
 import com.gabriel.todolist.datamodel.TodoItem;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Controller {
-   
+    
     private List<TodoItem> todoItems;
     
     @FXML
@@ -33,15 +35,29 @@ public class Controller {
     @FXML
     private BorderPane mainBorderPain;
     
+    @FXML
+    private ContextMenu listContextMenu;
     
-    public void initialize(){
+    
+    public void initialize() {
+        
+        listContextMenu = new ContextMenu();
+        MenuItem deleteMenuItem = new MenuItem("Delete");
+        deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                TodoItem item = todoListView.getSelectionModel().getSelectedItem();
+                deleteItem(item);
+            }
+        });
+        listContextMenu.getItems().addAll(deleteMenuItem);
         todoListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<TodoItem>() {
             @Override
             public void changed(ObservableValue<? extends TodoItem> observable, TodoItem oldValue, TodoItem newValue) {
-                if (newValue != null){
+                if (newValue != null) {
                     TodoItem item = todoListView.getSelectionModel().getSelectedItem();
                     itemDetailsTextArea.setText(item.getDetails());
-                    DateTimeFormatter df =  DateTimeFormatter.ofPattern("MMMM d, yyyy");
+                    DateTimeFormatter df = DateTimeFormatter.ofPattern("MMMM d, yyyy");
                     deadLineLabel.setText(df.format(item.getDeadLine()));
                     
                 }
@@ -56,16 +72,16 @@ public class Controller {
         todoListView.setCellFactory(new Callback<ListView<TodoItem>, ListCell<TodoItem>>() {
             @Override
             public ListCell<TodoItem> call(ListView<TodoItem> todoItemListView) {
-                ListCell<TodoItem> cell = new ListCell<TodoItem>(){
-    
+                ListCell<TodoItem> cell = new ListCell<TodoItem>() {
+                    
                     @Override
                     protected void updateItem(TodoItem item, boolean b) {
                         super.updateItem(item, b);
-                        if (isEmpty()){
+                        if (isEmpty()) {
                             setText(null);
                         } else {
                             setText(item.getShortDescription());
-                            if (item.getDeadLine().isBefore(LocalDate.now().plusDays(1))){
+                            if (item.getDeadLine().isBefore(LocalDate.now().plusDays(1))) {
                                 setTextFill(Color.RED);
                             } else if (item.getDeadLine().equals(LocalDate.now().plusDays(1))) {
                                 setTextFill(Color.BROWN);
@@ -73,13 +89,24 @@ public class Controller {
                         }
                     }
                 };
+                cell.emptyProperty().addListener(
+                        (obs, wasEmpty, isNowEmpty) -> {
+                             if (isNowEmpty) {
+                                 cell.setContextMenu(null);
+                             } else {
+                                 cell.setContextMenu(listContextMenu);
+                             }
+                        }
+                );
+                
                 return cell;
+                
             }
         });
     }
     
     @FXML
-    public void showNewItemDialog(){
+    public void showNewItemDialog() {
         Dialog<ButtonType> dialog = new Dialog<>();
         dialog.initOwner(mainBorderPain.getScene().getWindow());
         dialog.setTitle("Add new ToDo Item");
@@ -88,29 +115,37 @@ public class Controller {
         fxmlLoader.setLocation(getClass().getResource("todoItemDialog.fxml"));
         try {
             dialog.getDialogPane().setContent(fxmlLoader.load());
-        } catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Couldn't load the dialog");
             e.printStackTrace();
             return;
         }
         dialog.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dialog.getDialogPane().getButtonTypes().add(ButtonType.CANCEL);
-    
+        
         Optional<ButtonType> result = dialog.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             DialogController controller = fxmlLoader.getController();
             TodoItem newItem = controller.processResults();
-//            todoListView.getItems().setAll(TodoData.getInstance().getTodoItems());
             todoListView.getSelectionModel().select(newItem);
-//            System.out.println("Ok pressed");
-//        } else {
-//            System.out.println("Cancel pressed");
         }
     }
+    
     @FXML
-    public void handleClickListView(){
+    public void handleClickListView() {
         TodoItem item = todoListView.getSelectionModel().getSelectedItem();
         itemDetailsTextArea.setText(item.getDetails());
         deadLineLabel.setText(item.getDeadLine().toString());
+    }
+    
+    public void deleteItem(TodoItem item) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Delete Todo item");
+        alert.setHeaderText("Delete item " + item.getShortDescription());
+        alert.setContentText("Are you sure? \nPress OK to confirm or Cancel to Back out");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && (result.get() == ButtonType.OK)){
+            TodoData.getInstance().deleteTodoItem(item);
+        }
     }
 }
