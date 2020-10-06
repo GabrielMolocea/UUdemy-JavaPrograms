@@ -4,9 +4,11 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
 import javafx.scene.layout.*;
+import javafx.scene.web.*;
 import javafx.stage.*;
 
 import java.io.*;
+import java.util.*;
 
 
 public class Controller {
@@ -25,6 +27,9 @@ public class Controller {
     }
     
     @FXML
+    private WebView webView;
+    
+    @FXML
     public void handleMouseEnter() {
         label.setScaleX(2.0);
         label.setScaleY(2.0);
@@ -37,17 +42,39 @@ public class Controller {
     }
     @FXML
     public void handleClick() {
-        DirectoryChooser chooser = new DirectoryChooser();
+//        DirectoryChooser chooser = new DirectoryChooser();
        
-//        FileChooser chooser = new FileChooser();
+        FileChooser chooser = new FileChooser();
 //        chooser.showOpenDialog(grindPane.getScene().getWindow());
-        
-        File file =  chooser.showDialog(grindPane.getScene().getWindow());
+        chooser.setTitle("Save Application File");
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Zip","*.zip"),
+                new FileChooser.ExtensionFilter("PDF","*.pdf"),
+                new FileChooser.ExtensionFilter("Text","*.txt"),
+                new FileChooser.ExtensionFilter("All Files","*.*")
+        );
+        List<File> file =  chooser.showOpenMultipleDialog(grindPane.getScene().getWindow());
         if (file !=null) {
-            System.out.println(file.getPath());
+            for (int i = 0; i< file.size(); i++){
+                System.out.println(file.get(i));
+            }
+//            System.out.println(file.getPath());
         } else {
             System.out.println("Chooser was cancelled");
         }
+    }
+    
+    @FXML
+    public void handleLinkedClick() {
+//       try {
+//           Desktop.getDesktop().browse(new URI("http://www.javafx.com"));
+//       } catch (URISyntaxException | IOException e) {
+//           e.printStackTrace();
+//       }
+        WebEngine engine = webView.getEngine();
+        engine.load("http://www.javafx.com");
+    
+    
     }
     
 }
