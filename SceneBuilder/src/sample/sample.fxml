@@ -4,11 +4,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="center" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" prefHeight="76.0" prefWidth="196.0" stylesheets="@styles.css" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
    <columnConstraints>
       <ColumnConstraints />
-      <ColumnConstraints />
-      <ColumnConstraints />
+      <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints maxWidth="0.0" minWidth="0.0" prefWidth="0.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints />
@@ -18,18 +18,21 @@
    <children>
       <HBox GridPane.rowIndex="1">
          <children>
-            <Button mnemonicParsing="false" text="OK">
+            <Button mnemonicParsing="false" onAction="#handleAction" style="-fx-text-fill: white;" text="OK">
                <HBox.margin>
                   <Insets right="5.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Cancel" />
+            <Button mnemonicParsing="false" text="Cancel">
+               <HBox.margin>
+                  <Insets right="5.0" />
+               </HBox.margin></Button>
             <Button mnemonicParsing="false" text="Help" />
          </children>
          <GridPane.margin>
             <Insets left="5.0" right="5.0" />
          </GridPane.margin>
       </HBox>
-      <Label text="My Label" />
+      <Label fx:id="label" text="My Label" />
    </children>
 </GridPane>
