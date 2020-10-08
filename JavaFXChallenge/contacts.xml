@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<contacts>
+<contact>
+	<first_name>Gabriel</first_name>
+	<last_name>Molocea</last_name>
+	<phone_number>0741768065</phone_number>
+	<notes>Number</notes>
+</contact>
+<contact>
+	<first_name>Tim</first_name>
+	<last_name>Swinie</last_name>
+	<phone_number>123987456</phone_number>
+	<notes>Amezing</notes>
+</contact>
+</contacts>
