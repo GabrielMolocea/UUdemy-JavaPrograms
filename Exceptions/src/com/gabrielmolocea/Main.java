@@ -11,7 +11,7 @@ public class Main {
 //        System.out.println(divideEAFP(x,y));
 //        System.out.println(divide(x,y));
         
-        int x = getIntEAFP();
+        int x = getInt();
         System.out.println("x is: " + x);
     }
     
