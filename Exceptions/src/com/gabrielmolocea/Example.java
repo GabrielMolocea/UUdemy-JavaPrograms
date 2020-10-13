@@ -5,24 +5,28 @@ import java.util.*;
 public class Example {
     
     public static void main(String[] args) {
-        int result = divide();
-        System.out.println(result);
+        try {
+            int result = divide();
+            System.out.println(result);
+        } catch (ArithmeticException | NoSuchElementException exception) {
+            System.out.println(exception.toString());
+            System.out.println("Unable to perform division, auto-pilot shouting down");
+        }
+
     }
     private static int divide() {
         int x, y;
-        try {
+//        try {
             x = getInt();
             y = getInt();
-        } catch (NoSuchElementException exception) {
-            throw  new ArithmeticException("no suitable input");
-        }
-        
-        System.out.println("x is: " + x + ", y is: " + y);
-        try {
+            System.out.println("x is: " + x + ", y is: " + y);
             return x / y;
-        } catch (ArithmeticException e) {
-            throw new ArithmeticException("attempt to divide by 0");
-        }
+//        } catch (NoSuchElementException exception) {
+//            throw  new NoSuchElementException("No suitable input");
+//        } catch (ArithmeticException exception) {
+//            throw new ArithmeticException("Attempt to divide by 0");
+//        }
+        
     }
     private static int getInt() {
         Scanner scanner = new Scanner(System.in);
