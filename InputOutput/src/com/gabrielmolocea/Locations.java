@@ -1,11 +1,38 @@
 package com.gabrielmolocea;
 
+import java.io.*;
 import java.util.*;
 
 public class Locations implements Map<Integer,Location> {
     
     private static Map<Integer,Location> locations = new HashMap<>();
     
+    public static void main(String[] args) {
+        
+        FileWriter localFile = null;
+        try {
+            localFile = new FileWriter("locations.txt");
+            for (Location location : locations.values()) {
+                localFile.write(location.getLocationID() + "," + location.getDescription() + "\n");
+            }
+            localFile.close();
+        } catch (IOException e) {
+            System.out.println("In catch block");
+            e.printStackTrace();
+        } finally {
+            System.out.println("In finally block");
+            try {
+                if (localFile != null) {
+                    System.out.println("Attempting to close yhe localFile");
+                    localFile.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
     
     static {
         Map<String, Integer> tempExit = new HashMap<>();
