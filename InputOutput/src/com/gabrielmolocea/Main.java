@@ -9,9 +9,7 @@ public class Main {
     
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        
-        
-    
+//No more Labyrinth in Main Class
         Map<String,String> vocabulary = new HashMap<>();
         vocabulary.put("QUIT","Q");
         vocabulary.put("NORTH","N");
