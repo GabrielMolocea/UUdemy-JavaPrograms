@@ -7,66 +7,91 @@ public class Locations implements Map<Integer,Location> {
     
     private static Map<Integer,Location> locations = new HashMap<>();
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
-        FileWriter localFile = null;
-        try {
-            localFile = new FileWriter("locations.txt");
+        try(FileWriter locFile = new FileWriter("locations.txt");
+            FileWriter dirFile = new FileWriter("directions.txt")) {
             for (Location location : locations.values()) {
-                localFile.write(location.getLocationID() + "," + location.getDescription() + "\n");
-            }
-            localFile.close();
-        } catch (IOException e) {
-            System.out.println("In catch block");
-            e.printStackTrace();
-        } finally {
-            System.out.println("In finally block");
-            try {
-                if (localFile != null) {
-                    System.out.println("Attempting to close yhe localFile");
-                    localFile.close();
+                locFile.write(location.getLocationID() + "," + location.getDescription() + "\n");
+                for (String directions : location.getExits().keySet()) {
+                    dirFile.write(location.getLocationID() + "," + directions+ "," + location.getExits().get(directions) + "\n");
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-
         }
+
+//        FileWriter localFile = null;
+//        try {
+//            localFile = new FileWriter("locations.txt");
+//            for (Location location : locations.values()) {
+//                localFile.write(location.getLocationID() + "," + location.getDescription() + "\n");
+//            }
+//            localFile.close();
+//        } finally {
+//            System.out.println("In finally block");
+//            if (localFile != null) {
+//                System.out.println("Attempting to close yhe localFile");
+//                localFile.close();
+//            }
+//        }
 
     }
     
     static {
-        Map<String, Integer> tempExit = new HashMap<>();
-        locations.put(0, new Location(0, "You are sitting in front of a computer learning Java",tempExit));
     
-        //First room in the mini game
-        tempExit.put("W",2);
-        tempExit.put("E",3);
-        tempExit.put("S",4);
-        tempExit.put("N",5);
-        locations.put(1, new Location(1, "You are standing at the end of a road before a small brick building",tempExit));
-    
-        //Second room in the mini game
-        tempExit = new HashMap<>();
-        tempExit.put("N",5);
-        locations.put(2, new Location(2, "You are at the top of a hill",tempExit));
-    
-        //Third room in the mini game
-        tempExit = new HashMap<>();
-        tempExit.put("W",1);
-        locations.put(3, new Location(3, "You are inside a building, a well house for a small spring ",tempExit));
-    
-        //Fourth room in the mini game
-        tempExit = new HashMap<>();
-        tempExit.put("N",1);
-        tempExit.put("W",2);
-        locations.put(4, new Location(4, "You are in a valley beside a stream",tempExit));
-    
-        //Five room in the mini game
-        tempExit = new HashMap<>();
-        tempExit.put("S",1);
-        tempExit.put("W",2);
-        locations.put(5, new Location(5, "You are in the forest",tempExit));
+        Scanner scanner = null;
+        
+        try {
+            scanner = new Scanner(new FileReader("locations.txt"));
+            scanner.useDelimiter(",");
+            while (scanner.hasNextLine()) {
+                int loc = scanner.nextInt();
+                scanner.skip(scanner.delimiter());
+                String description = scanner.nextLine();
+                System.out.println("Imported loc: " + loc + ": " + description);
+                Map<String,Integer> tempExit = new HashMap<>();
+                locations.put(loc,new Location(loc,description,tempExit));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (scanner != null) {
+                scanner.close();
+            }
+        }
+//        Map<String, Integer> tempExit = new HashMap<>();
+//        locations.put(0, new Location(0, "You are sitting in front of a computer learning Java",tempExit));
+//
+//        //First room in the mini game
+//        tempExit.put("W",2);
+//        tempExit.put("E",3);
+//        tempExit.put("S",4);
+//        tempExit.put("N",5);
+//        locations.put(1, new Location(1, "You are standing at the end of a road before a small brick building",tempExit));
+//
+//        //Second room in the mini game
+//        tempExit = new HashMap<>();
+//        tempExit.put("N",5);
+//        locations.put(2, new Location(2, "You are at the top of a hill",tempExit));
+//
+//        //Third room in the mini game
+//        tempExit = new HashMap<>();
+//        tempExit.put("W",1);
+//        locations.put(3, new Location(3, "You are inside a building, a well house for a small spring ",tempExit));
+//
+//        //Fourth room in the mini game
+//        tempExit = new HashMap<>();
+//        tempExit.put("N",1);
+//        tempExit.put("W",2);
+//        locations.put(4, new Location(4, "You are in a valley beside a stream",tempExit));
+//
+//        //Five room in the mini game
+//        tempExit = new HashMap<>();
+//        tempExit.put("S",1);
+//        tempExit.put("W",2);
+//        locations.put(5, new Location(5, "You are in the forest",tempExit));
     }
+    
+    
     @Override
     public int size() {
         return locations.size();
