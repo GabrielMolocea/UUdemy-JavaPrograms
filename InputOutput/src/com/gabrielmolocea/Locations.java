@@ -46,37 +46,63 @@ public class Locations implements Map<Integer,Location> {
     
     static {
         
-        try(Scanner scanner = new Scanner(new BufferedReader(new FileReader("locations_big.txt")))) {
-            scanner.useDelimiter(",");
-            while (scanner.hasNextLine()) {
-                int loc = scanner.nextInt();
-                scanner.skip(scanner.delimiter());
-                String description = scanner.nextLine();
-                System.out.println("Imported loc: " + loc + ": " + description);
-                Map<String,Integer> tempExit = new HashMap<>();
-                locations.put(loc,new Location(loc,description,tempExit));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        Now read the exits
-        try(Scanner scanner = new Scanner(new BufferedReader(new FileReader("directions_big.txt")))) {
-            scanner.useDelimiter(",");
-            while (scanner.hasNextLine()) {
-                String input = scanner.nextLine();
-                String[] data = input.split(",");
-                int loc = Integer.parseInt(data[0]);
-                String direction = data[1];
-                int destination = Integer.parseInt(data[2]);
-                
-                System.out.println(loc + ": " + direction + ": " + destination);
-                Location location = locations.get(loc);
-                location.addExit(direction, destination);
-                
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       try(DataInputStream locFile = new DataInputStream(new BufferedInputStream(new FileInputStream("location.dat")))) {
+           boolean eof = false;
+           while (!eof) {
+               try {
+                   Map<String,Integer> exits =  new LinkedHashMap<>();
+                   int locID = locFile.readInt();
+                   String description = locFile.readUTF();
+                   int numExits = locFile.readInt();
+                   System.out.println("Read location " + locID + " : " + description);
+                   System.out.println("Found "+ numExits + " exits");
+                   for (int i = 0; i < numExits; i++) {
+                       String directions = locFile.readUTF();
+                       int destination = locFile.readInt();
+                       exits.put(directions,destination);
+                       System.out.println("\t\t" + directions + "," +destination);
+                   }
+                   locations.put(locID, new Location(locID,description,exits));
+               } catch (EOFException e) {
+                   eof = true;
+               }
+           }
+       } catch (IOException io) {
+           System.out.println("IO Exception");
+       }
+        
+        
+//        try(Scanner scanner = new Scanner(new BufferedReader(new FileReader("locations_big.txt")))) {
+//            scanner.useDelimiter(",");
+//            while (scanner.hasNextLine()) {
+//                int loc = scanner.nextInt();
+//                scanner.skip(scanner.delimiter());
+//                String description = scanner.nextLine();
+//                System.out.println("Imported loc: " + loc + ": " + description);
+//                Map<String,Integer> tempExit = new HashMap<>();
+//                locations.put(loc,new Location(loc,description,tempExit));
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+////        Now read the exits
+//        try(Scanner scanner = new Scanner(new BufferedReader(new FileReader("directions_big.txt")))) {
+//            scanner.useDelimiter(",");
+//            while (scanner.hasNextLine()) {
+//                String input = scanner.nextLine();
+//                String[] data = input.split(",");
+//                int loc = Integer.parseInt(data[0]);
+//                String direction = data[1];
+//                int destination = Integer.parseInt(data[2]);
+//
+//                System.out.println(loc + ": " + direction + ": " + destination);
+//                Location location = locations.get(loc);
+//                location.addExit(direction, destination);
+//
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
     
     
