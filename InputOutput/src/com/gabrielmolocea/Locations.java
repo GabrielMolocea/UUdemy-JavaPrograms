@@ -9,17 +9,39 @@ public class Locations implements Map<Integer,Location> {
     
     public static void main(String[] args) throws IOException {
         
-        try(BufferedWriter locFile = new BufferedWriter(new FileWriter("locations.txt"));
-            BufferedWriter dirFile = new BufferedWriter(new FileWriter("directions.txt"))) {
+        try(DataOutputStream locFile = new DataOutputStream(new BufferedOutputStream(new FileOutputStream("location.dat")))) {
+           
+            // Writing Locations with Description to .dat file
             for (Location location : locations.values()) {
-                locFile.write(location.getLocationID() + "," + location.getDescription() + "\n");
-                for (String directions : location.getExits().keySet()) {
-                    if(!directions.equalsIgnoreCase("Q")) {
-                        dirFile.write(location.getLocationID() + "," + directions+ "," + location.getExits().get(directions) + "\n");
-                   }
+                locFile.writeInt(location.getLocationID());
+                locFile.writeUTF(location.getDescription());
+                System.out.println("Writing location " + location.getLocationID() + " : " + location.getDescription());
+                
+                // Writing Exits data to .dat file
+                System.out.println("Writing " + (location.getExits().size() - 1) + " exits.");
+                locFile.writeInt(location.getExits().size() - 1);
+                for (String direction : location.getExits().keySet()) {
+                    if (!direction.equalsIgnoreCase("Q")) {
+                        System.out.println("\t\t" + direction + ", " + location.getExits().get(direction));
+                        locFile.writeUTF(direction);
+                        locFile.writeInt(location.getExits().get(direction));
+                    }
                 }
             }
         }
+        
+//
+//        try(BufferedWriter locFile = new BufferedWriter(new FileWriter("locations.txt"));
+//            BufferedWriter dirFile = new BufferedWriter(new FileWriter("directions.txt"))) {
+//            for (Location location : locations.values()) {
+//                locFile.write(location.getLocationID() + "," + location.getDescription() + "\n");
+//                for (String directions : location.getExits().keySet()) {
+//                    if(!directions.equalsIgnoreCase("Q")) {
+//                        dirFile.write(location.getLocationID() + "," + directions+ "," + location.getExits().get(directions) + "\n");
+//                   }
+//                }
+//            }
+//        }
     }
     
     static {
