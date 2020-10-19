@@ -1,11 +1,17 @@
 package com.gabrielmolocea;
 
+import java.io.*;
 import java.util.*;
 
-public class Location {
+public class Location implements Serializable {
     private final int locationID;
     private final String description;
     private final Map<String,Integer> exits;
+    
+    // Using Serializable interface in mandatory to add serialVersionUID as long and attributing a serial
+    // In this case we will attribute 1 as is the first serial we are using
+    
+    private long serialVersionUID = 1L;
     
     public Location(int locationID, String description, Map<String,Integer> exits) {
         this.locationID = locationID;
