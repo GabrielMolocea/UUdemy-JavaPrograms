@@ -6,6 +6,7 @@ import java.util.*;
 public class Locations implements Map<Integer,Location> {
     
     private static Map<Integer,Location> locations = new LinkedHashMap<>();
+    private static Map<Integer, IndexRecord> index = new LinkedHashMap<>();
     
     public static void main(String[] args) throws IOException {
     
@@ -31,9 +32,35 @@ public class Locations implements Map<Integer,Location> {
   */
 
     
-    try(ObjectOutputStream locFile = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("location.dat")))) {
+    try(RandomAccessFile rao = new RandomAccessFile("locations_rand.dat"," rwd")) {
+        rao.writeInt(locations.size());
+        int indexSize = locations.size() * 3 * Integer.BYTES;
+        int locationStart = (int) (indexSize + rao.getFilePointer() + Integer.BYTES);
+        rao.writeInt(locationStart);
+        
+        long indexStart = rao.getFilePointer();
+        
+        int startPrinter = locationStart;
+        rao.seek(startPrinter);
+        
         for (Location location : locations.values()) {
-            locFile.writeObject(location);
+            rao.writeInt(location.getLocationID());
+            rao.writeUTF(location.getDescription());
+            StringBuilder builder = new StringBuilder();
+            for (String direction : location.getExits().keySet()) {
+                if (!direction.equalsIgnoreCase("Q")) {
+                    builder.append(direction);
+                    builder.append(",");
+                    builder.append(location.getExits().get(direction));
+                    builder.append(",");
+                }
+            }
+            rao.writeUTF(builder.toString());
+            
+            IndexRecord record = new IndexRecord(startPrinter, (int) (rao.getFilePointer() - startPrinter));
+            index.put(location.getLocationID(), record);
+            
+            startPrinter = (int) rao.getFilePointer();
         }
     }
     
