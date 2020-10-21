@@ -11,7 +11,7 @@ public class Location implements Serializable {
     // Using Serializable interface in mandatory to add serialVersionUID as long and attributing a serial
     // In this case we will attribute 1 as is the first serial we are using
     
-    private long serialVersionUID = 1L;
+//    private long serialVersionUID = 1L;
     
     public Location(int locationID, String description, Map<String,Integer> exits) {
         this.locationID = locationID;
