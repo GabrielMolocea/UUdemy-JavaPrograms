@@ -11,12 +11,25 @@ public class Main {
         printFile(path);
         System.out.println("\n");
         
-        Path filePath = FileSystems.getDefault().getPath("files","SubdirectoryFile.txt");
+        //Path filePath = FileSystems.getDefault().getPath("files","SubdirectoryFile.txt");
+        
+        //Order of the arguments are very important -> Wrong order of the arguments ca cause to show like:
+        //SubdirectoryFile.txt\\files for example.
+        Path filePath = Paths.get(".","files","SubdirectoryFile.txt");
         printFile(filePath);
         
         System.out.println("\n");
         filePath = Paths.get("F:\\Udemy-JavaPrograms\\UUdemy-JavaPrograms\\OutThere.txt");
+        //Example of how to write absolute path different and get the same result
+        //filePath = Paths.get("D:\\", "Examples", "OutThere.txt");
         printFile(filePath);
+        
+        // Getting the absolut path
+        filePath = Paths.get(".");
+        System.out.println(filePath.toAbsolutePath());
+        Path path2 = FileSystems.getDefault().getPath(".","files","..","files","SubdirectoryFile.txt");
+        System.out.println(path2.normalize().toAbsolutePath());
+        printFile(path2.normalize());
     }
     
     private static void printFile(Path path) {
