@@ -4,7 +4,7 @@ import javafx.application.*;
 import javafx.collections.*;
 import javafx.concurrent.*;
 import javafx.fxml.*;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 
 
 public class Controller {
@@ -14,23 +14,44 @@ public class Controller {
     @FXML
     private ListView listView;
     
+    @FXML
+    private ProgressBar progressBar;
+    
+    @FXML
+    private Label progressLabel;
+    
     public void initialize() {
         task = new Task<ObservableList<String>>() {
             @Override
             protected ObservableList<String> call() throws Exception {
-                Thread.sleep(1000);
-                ObservableList<String> employees = FXCollections.observableArrayList(
+                String[] names = {
                         "Gabriel Molocea",
                         "Biil Gats",
                         "Marian Molocea",
                         "Adrew Tosk",
                         "Steave Hacks",
-                        "Tim Johns");
+                        "Tim Johns"};
+                
+                ObservableList<String> employees = FXCollections.observableArrayList();
+                
+                for (int i = 0; i < 6; i++) {
+                    employees.add(names[i]);
+                    updateMessage("Added " + names[i] + " to the list");
+                    updateProgress(i+1,6);
+                    
+                    Thread.sleep(200);
+                }
                 return employees;
             }
         };
         
+        
+        progressBar.progressProperty().bind(task.progressProperty());
+        
+        progressLabel.textProperty().bind(task.messageProperty());
+        
         listView.itemsProperty().bind(task.valueProperty());
+        
     }
     
     @FXML
