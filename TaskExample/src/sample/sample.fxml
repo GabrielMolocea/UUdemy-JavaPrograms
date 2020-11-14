@@ -6,6 +6,6 @@
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <Button onAction="#buttonPressed" text="Get Employee Names" GridPane.columnIndex="0" GridPane.rowIndex="0" />
     <ListView fx:id="listView" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-    <ProgressBar fx:id="progressBar" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-    <Label fx:id="progressLabel" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+    <ProgressBar fx:id="progressBar" GridPane.columnIndex="0" GridPane.rowIndex="2" progress="1" visible="true"/>
+    <Label fx:id="progressLabel" GridPane.rowIndex="3" GridPane.columnIndex="0" />
 </GridPane>
