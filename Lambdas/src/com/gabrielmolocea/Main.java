@@ -3,7 +3,7 @@ package com.gabrielmolocea;
 import java.util.*;
 
 public class Main {
-
+    
     public static void main(String[] args) {
 //	    new Thread(() -> {
 //            System.out.println("Printing from the Runnable");
@@ -11,16 +11,21 @@ public class Main {
 //            System.out.format("This is line %d\n", 3);
 //        }).start();
 //
-	    Employee jhon = new Employee("Jhon", 30);
-	    Employee tim = new Employee("Tim", 55);
-	    Employee gabriel = new Employee("Gabriel", 25);
-	    Employee snow = new Employee("Snow", 22);
-    
+        Employee jhon = new Employee("Jhon", 30);
+        Employee tim = new Employee("Tim", 55);
+        Employee gabriel = new Employee("Gabriel", 25);
+        Employee snow = new Employee("Snow", 22);
+        
         List<Employee> employees = new ArrayList<>();
         employees.add(jhon);
         employees.add(tim);
         employees.add(gabriel);
         employees.add(snow);
+
+        employees.forEach(employee -> {
+            System.out.println(employee.getName());
+            System.out.println(employee.getAge());
+        });
         
 //        Collections.sort(employees, new Comparator<Employee>() {
 //            @Override
@@ -28,8 +33,8 @@ public class Main {
 //                return employee1.getName().compareTo(employee2.getName());
 //            }
 //        });
-        
-        
+
+
 //        Collections.sort(employees, (employee1, employee2) ->
 //                employee1.getName().compareTo(employee2.getName()));
 //        for (Employee employee : employees) {
@@ -51,14 +56,27 @@ public class Main {
 //        };
 //        String sillyString = doStringStuff(uc, employees.get(0).getName(), employees.get(1).getName());
 //        System.out.println(sillyString);
-  
-        AnotherClass anotherClass = new AnotherClass();
-        String s = anotherClass.doSomething();
-        System.out.println(s);
+//
+//        AnotherClass anotherClass = new AnotherClass();
+//        String s = anotherClass.doSomething();
+//        System.out.println(s);
+//
+//        for (Employee employee : employees) {
+//            System.out.println(employee.getName());
+//            System.out.println(employee.getAge());
+////            new Thread(() -> System.out.println(employee.getAge())).start();
+//        }
+//        System.out.println("*****************************");
+//        for (int i = 0; i < employees.size(); i++) {
+//            Employee employee = employees.get(i);
+//            System.out.println(employee.getName());
+//            new Thread(() -> System.out.println(employee.getAge())).start();
+//        }
+    
     }
     
     public final static String doStringStuff(UpperConcat uc, String s1, String s2) {
-        return uc.upperAndConcat(s1,s2);
+        return uc.upperAndConcat(s1, s2);
     }
 }
 
@@ -89,6 +107,7 @@ class Employee {
     
     
 }
+
 interface UpperConcat {
     String upperAndConcat(String s1, String s2);
 }
@@ -102,12 +121,13 @@ class AnotherClass {
 //        };
         
         int i = 0;
-
         UpperConcat uc = (s1, s2) -> {
             System.out.println("The lambdas expressions class is: " + getClass().getSimpleName());
+            System.out.println("i in the lambda expression = " + i);
             String result = s1.toUpperCase() + s2.toUpperCase();
             return result;
         };
+
 //
 //        UpperConcat uc = new UpperConcat() {
 //            @Override
@@ -120,10 +140,8 @@ class AnotherClass {
 
 //            i++;
 //        System.out.println("i = " + i);
-        return Main.doStringStuff(uc, "String1","String2");
-        
-       
-        
+        return Main.doStringStuff(uc, "String1", "String2");
+
 //        System.out.println("The anotherClass class's name is: " + getClass().getSimpleName());
 //        return Main.doStringStuff(new UpperConcat() {
 //            @Override
@@ -132,5 +150,19 @@ class AnotherClass {
 //                return s1.toUpperCase() + s2.toUpperCase();
 //            }
 //        }, "String1", "String2");
+    }
+    
+    public void printValue() {
+        int number = 25;
+        
+        Runnable r = () -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("The value is " + number);
+        };
+        new Thread(r).start();
     }
 }
