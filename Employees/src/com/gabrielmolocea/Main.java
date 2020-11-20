@@ -26,6 +26,31 @@ public class Main {
         printEmployeesByAge(employees,"Employees over 30", employee -> employee.getAge() > 30);
         printEmployeesByAge(employees,"Employees 30 or younger ", employee -> employee.getAge() <= 30);
         
+        printEmployeesByAge(employees, "\nEmployees younger then 25", employee -> employee.getAge() < 25);
+        
+        IntPredicate greaterThen15 = i -> i > 15;
+        IntPredicate lessThen100 = i -> i < 100;
+        
+        System.out.println(greaterThen15.test(10));
+        int a = 20;
+        System.out.println(greaterThen15.test(a+5));
+    
+        System.out.println(greaterThen15.and(lessThen100).test(50));
+        
+        System.out.println(greaterThen15.and(lessThen100).test(15));
+        
+        Random random = new Random();
+        Supplier<Integer> randomSupplier = () -> random.nextInt(1000);
+    
+        System.out.println("***********************");
+        
+        for (int i = 0; i < 10; i++) {
+            System.out.println(randomSupplier.get());
+        }
+    
+        System.out.println("************************");
+        
+        
         
 //        employees.forEach(employee -> {
 //            if (employee.getAge() <= 30) {
