@@ -23,26 +23,43 @@ public class Main {
         employees.add(red);
         employees.add(charming);
     
-        Function<Employee, String> getLastName = (Employee employee) -> {
-            return employee.getName().substring(employee.getName().indexOf(' ') + 1);
+
+        Function<Employee, String> upperCase = employee -> employee.getName().toUpperCase();
+        Function<String, String> firstName = name -> name.substring(0, name.indexOf(' '));
+        Function chainedFunction = upperCase.andThen(firstName);
+        System.out.println(chainedFunction.apply(employees.get(0)));
+        
+        BiFunction<String, Employee, String > concatAge = (String name, Employee employee) -> {
+            return name.concat(" " + employee.getAge());
         };
         
-        String lastName = getLastName.apply(employees.get(1));
-//        System.out.println(lastName);
+        String upperName = upperCase.apply(employees.get(0));
+        System.out.println(concatAge.apply(upperName, employees.get(0)));
         
-        Function<Employee, String > getFirstName = (Employee employee) -> {
-          return employee.getName().substring(0, employee.getName().indexOf(' '));
-        };
+        IntUnaryOperator incBy5 = i -> i + 5;
+        System.out.println(incBy5.applyAsInt(10));
         
-        Random random1 = new Random();
-        for (Employee employee : employees) {
-            if (random1.nextBoolean()) {
-                System.out.println(getAName(getFirstName, employee));
-            } else {
-                System.out.println(getAName(getLastName, employee));
-            }
-        }
         
+//        Function<Employee, String> getLastName = (Employee employee) -> {
+//            return employee.getName().substring(employee.getName().indexOf(' ') + 1);
+//        };
+//
+//        String lastName = getLastName.apply(employees.get(1));
+////        System.out.println(lastName);
+//
+//        Function<Employee, String > getFirstName = (Employee employee) -> {
+//          return employee.getName().substring(0, employee.getName().indexOf(' '));
+//        };
+//
+//        Random random1 = new Random();
+//        for (Employee employee : employees) {
+//            if (random1.nextBoolean()) {
+//                System.out.println(getAName(getFirstName, employee));
+//            } else {
+//                System.out.println(getAName(getLastName, employee));
+//            }
+//        }
+//
 //        printEmployeesByAge(employees,"Employees over 30", employee -> employee.getAge() > 30);
 //        printEmployeesByAge(employees,"Employees 30 or younger ", employee -> employee.getAge() <= 30);
 //
