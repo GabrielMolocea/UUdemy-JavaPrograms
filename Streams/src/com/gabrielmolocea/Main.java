@@ -1,6 +1,7 @@
 package com.gabrielmolocea;
 
 import java.util.*;
+import java.util.stream.*;
 
 public class Main {
 
@@ -12,16 +13,24 @@ public class Main {
                 "I26", "I17", "I29",
                 "O71");
         
-        List<String> gNumbers = new ArrayList<>();
-        
         someBingoNumbers
                 .stream()
-                .map(String::toUpperCase)
-                .filter(s -> s.startsWith("G"))
+                .map(String::toUpperCase) // map(Accepts a argument and can us String::toUpperCase in case of lambda)
+                .filter(s -> s.startsWith("G")) // filter accepts a function
                 .sorted()
-                .forEach(System.out::println);
+                .forEach(System.out::println); //forEach in called a terminal operation
+    
+        Stream<String> ioNumberStream = Stream.of("I26", "I17", "I29", "O71");
+        Stream<String> inNumberStream = Stream.of("N40", "N36",  "I26", "I17", "I29", "O71");
+        Stream<String> concatStream = Stream.concat(ioNumberStream, inNumberStream);
+        System.out.println("----------------------------------");
+        System.out.println(concatStream
+                .distinct()
+                .peek(System.out::println)
+                .count());
         
         
+//        List<String> gNumbers = new ArrayList<>();
 //        someBingoNumbers.forEach(number -> {
 //            if (number.toUpperCase().startsWith("G")){
 //                gNumbers.add(number);
