@@ -1,5 +1,6 @@
 package com.gabrielmolocea;
 
+import java.util.*;
 import java.util.function.*;
 
 public class Main {
@@ -24,27 +25,52 @@ public class Main {
 //                 System.out.println(part);
 //             }
 //         };
+//
+//        Function<String,String> lambdaFunction = s -> {
+//            StringBuilder returnVal = new StringBuilder();
+//            for (int i = 0; i < s.length(); i++) {
+//                if (i % 2 == 1) {
+//                    returnVal.append(s.charAt(i));
+//                }
+//            }
+//            return returnVal.toString();
+//        };
+//
+//        System.out.println(lambdaFunction.apply("1234567890"));
+//
+//        String result = everySecondCharacter(lambdaFunction, "1234567890");
+//        System.out.println(result);
+//
+////        Supplier<String> iLoveJava = () -> "I love Java";
+//        Supplier<String> iLoveJava = () -> { return "I love Java"; };
+//
+//        String supplierREsult = iLoveJava.get();
+//        System.out.println(supplierREsult);
     
-        Function<String,String> lambdaFunction = s -> {
-            StringBuilder returnVal = new StringBuilder();
-            for (int i = 0; i < s.length(); i++) {
-                if (i % 2 == 1) {
-                    returnVal.append(s.charAt(i));
-                }
-            }
-            return returnVal.toString();
-        };
+        List<String> topName2015 = Arrays.asList(
+                "Amelia",
+                "Olivia",
+                "emily",
+                "Isla",
+                "Ava",
+                "oliver",
+                "Jack",
+                "Charlie",
+                "harry",
+                "Jacob"
+        );
+        
+        List<String> firstUpperCasList = new ArrayList<>();
+//        topName2015.forEach(name -> firstUpperCasList.add(name.substring(0,1).toUpperCase() + name.substring(1)));
+//        firstUpperCasList.sort(String::compareTo);
+//        firstUpperCasList.forEach(System.out::println);
     
-        System.out.println(lambdaFunction.apply("1234567890"));
+        topName2015
+                .stream()
+                .map(name -> name.substring(0, 1).toUpperCase() + name.substring(1))
+                .sorted(String::compareTo)
+                .forEach(System.out::println);
         
-        String result = everySecondCharacter(lambdaFunction, "1234567890");
-        System.out.println(result);
-        
-//        Supplier<String> iLoveJava = () -> "I love Java";
-        Supplier<String> iLoveJava = () -> { return "I love Java"; };
-        
-        String supplierREsult = iLoveJava.get();
-        System.out.println(supplierREsult);
     }
     
     
