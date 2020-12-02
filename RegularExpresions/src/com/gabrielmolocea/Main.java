@@ -1,5 +1,7 @@
 package com.gabrielmolocea;
 
+import java.util.regex.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -49,5 +51,28 @@ public class Main {
     
         System.out.println(newAlphanumeric.replaceAll("\\w", "X"));// \\x matches a-z,0-9,A-Z and _ //W matches all except \\w function
         System.out.println(hasWhitespace.replaceAll("\\b", "X"));
+    
+        String secondAlphanumeric = "abcDeeeF12Ghhiiiijk99z";
+        System.out.println(secondAlphanumeric.replaceAll("^abcDe{3}", "YYY")); // character{numbers} -> represents the total fo how many characters need to match in
+                                                                                                // order to replace the string in this example is 3
+        System.out.println(secondAlphanumeric.replaceAll("^abcDe+", "YYY")); // + -> character is looking for any characters, not a number of characters as {}
+    
+        System.out.println(secondAlphanumeric.replaceAll("^abcDe*", "YYY")); // * is looking for any characters in string
+    
+        System.out.println(secondAlphanumeric.replaceAll("^abcDe{2,5}", "YYY"));
+    
+        System.out.println(secondAlphanumeric.replaceAll("h+i*j", "Y"));
+        
+        StringBuilder htmlText = new StringBuilder("<h1>My Heading</h1>");
+        htmlText.append("<h2>Sub-heading</h2>");
+        htmlText.append("<p>This is a paragraph about something.</p>");
+        htmlText.append("<p>THis is another paragraphs about something else.</p>");
+        htmlText.append("<h2<Summary</h2>");
+        htmlText.append("<p>Here is the summary.</p>");
+        
+        String h2Patten = ".+<h2>.*";
+        Pattern pattern = Pattern.compile(h2Patten);
+        Matcher matcher = pattern.matcher(htmlText);
+        System.out.println(matcher.matches());
     }
 }
