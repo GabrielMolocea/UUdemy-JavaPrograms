@@ -100,8 +100,31 @@ public class Main {
         while (h2textMatcher.find()) {
             System.out.println("Occurrence: " + h2textMatcher.group(2));
         }
+    
+        System.out.println("harry".replaceAll("[H|h]arry", "Larry"));
+        System.out.println("Harry".replaceAll("[H|h]arry", "Larry"));
         
+        String tvTest = "tstvtkt";
+//        String tNotVRegExp = "t[^v]";
+        String tNotVRegExp = "t(?!v)";
+        Pattern tNotVPatten = Pattern.compile(tNotVRegExp);
+        Matcher tNotVMatcher = tNotVPatten.matcher(tvTest);
         
+        count = 0;
+        while (tNotVMatcher.find()) {
+            count++;
+            System.out.println("Occurrence: " + count + " : " + tNotVMatcher.start() + " to " + tNotVMatcher.end());
+        }
+        
+        String phone1 = "1234657890"; //Not a phone number that wll match
+        String phone2 = "(123) 456-7890"; // Right format
+        String phone3 = "123 456-7890"; // Shouldn't match
+        String phone4 = "(123)456-7890";// Shouldn't match
+    
+        System.out.println("phone1 = " + phone1.matches("^([\\(]{1}[0-9]{3}[\\)]{1}[ ]{1}[0-9]{3}[\\-]{1}[0-9]{4})$")); // Format for US phone number
+        System.out.println("phone2 = " + phone2.matches("^([\\(]{1}[0-9]{3}[\\)]{1}[ ]{1}[0-9]{3}[\\-]{1}[0-9]{4})$"));
+        System.out.println("phone3 = " + phone3.matches("^([\\(]{1}[0-9]{3}[\\)]{1}[ ]{1}[0-9]{3}[\\-]{1}[0-9]{4})$"));
+        System.out.println("phone4 = " + phone4.matches("^([\\(]{1}[0-9]{3}[\\)]{1}[ ]{1}[0-9]{3}[\\-]{1}[0-9]{4})$"));
         
         
     }
